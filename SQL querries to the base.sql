@@ -29,8 +29,8 @@
 -- I realized that "Legal representation" is the most common topic, so I want to display all URLs that contain "Legal representation" as topic
  
 
-SELECT *
-FROM identify_duplicates
-WHERE topics LIKE '%Legal representation%'
-ORDER BY url ASC;
+-- SELECT *
+-- FROM identify_duplicates
+-- WHERE topics LIKE '%Legal representation%'
+-- ORDER BY url ASC;
 

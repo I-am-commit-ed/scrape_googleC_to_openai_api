@@ -1,9 +1,8 @@
 pandas
 sqlalchemy
 requests
-BeautifulSoup
+beautifulsoup4
 psycopg2
-os
 openai
-bs4
-time
+
+

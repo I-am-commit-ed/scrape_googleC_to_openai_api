@@ -43,7 +43,7 @@ def analyze_url_with_chatgpt(url: str) -> str:
 
     # Craft the prompt for ChatGPT
     prompt = f"""
-    You are an expert in analyzing the content of Hebrew web pages. Go to the URL '{url}' and extract the most prominent topics. 
+    You are an expert in analyzing SEO content. Go to the URL '{url}' and extract the most prominent topics. 
     Summarize your findings in 5-10 keywords (in English). Consider the keywords in the URL as well.
     If the provided URL is thin in content, return the following output "* No topics found"
     """
