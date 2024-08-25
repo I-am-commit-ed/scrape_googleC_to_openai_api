@@ -1,0 +1,9 @@
+pandas
+sqlalchemy
+requests
+BeautifulSoup
+psycopg2
+os
+openai
+bs4
+time
