@@ -1,3 +1,5 @@
+-- SELECT * FROM identify_duplicates
+
 -- CREATE TABLE IF NOT EXISTS identify_duplicates (
 --     URL VARCHAR (255) PRIMARY KEY,
 --     Topics TEXT,
@@ -33,4 +35,3 @@
 -- FROM identify_duplicates
 -- WHERE topics LIKE '%Legal representation%'
 -- ORDER BY url ASC;
-

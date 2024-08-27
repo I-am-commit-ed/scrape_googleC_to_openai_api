@@ -8,7 +8,7 @@ def run_project() -> None:
     """
     # Step 1: Create the table (if it doesn't exist)
     print("Setting up the database...")
-    db_setup.create_table()
+    db_setup.create_table()  # Ensure this function exists in db_setup.py
     
     # Step 2: Import data from the two CSV files into the PostgreSQL table
     print("Importing data from CSV files into the database...")
@@ -17,8 +17,7 @@ def run_project() -> None:
     pages_to_db_csv_path = "/Users/manuel/Desktop/JeanPierreWeil_Open_AI/pages_to_db.csv"
     queries_csv_path = "/Users/manuel/Desktop/JeanPierreWeil_Open_AI/queries.csv"
     
-    # Your logic to read the CSV files and insert data into the database would go here
-    # For example, use a custom function to handle CSV to DB import for each file
+    # Import CSV data into the database
     import_csv_to_db(pages_to_db_csv_path)
     import_csv_to_db(queries_csv_path)
     
@@ -28,10 +27,9 @@ def run_project() -> None:
     
     print("All tasks completed successfully.")
 
-# Define a function to handle importing CSV to database
+# Define a function to handle importing CSV to the database
 def import_csv_to_db(csv_file_path):
     # Add your code to read CSV and insert into the database
-    # Example placeholder code:
     print(f"Importing from {csv_file_path} into the database...")
     # Implement the CSV reading and DB insertion logic here
 

@@ -9,7 +9,7 @@ from collections import Counter
 nltk.download('punkt_tab')
 
 # # Load the CSV file
-df = pd.read_csv('/Users/manuel/Desktop/Hackaton_1/Hackaton1_short_test - Sheet1.csv')
+df = pd.read_csv('/Users/manuel/Desktop/JeanPerreWeill_open_AI/pages_to_db.csv')
 
 # Define a function to scrape content from a URL
 def scrape_content(url):
