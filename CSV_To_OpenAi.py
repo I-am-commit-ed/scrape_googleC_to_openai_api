@@ -2,6 +2,7 @@ import pandas as pd
 from openai import OpenAI
 import os
 from dotenv import load_dotenv
+import time
 
 # Load environment variables from .env file
 load_dotenv()
@@ -18,7 +19,7 @@ def analyze_url_with_chatgpt(url: str) -> tuple:
     1. Extract the most prominent topics. Summarize your findings in 5-10 keywords (in English). Consider the keywords in the URL as well.
     2. Identify the single most frequently occurring word in the content of the URL (excluding common stop words).
 
-    Format your response as follows:
+    Format your response exactly as follows:
     Topics: keyword1, keyword2, keyword3, ...
     Top word: most_frequent_word
 
@@ -27,26 +28,40 @@ def analyze_url_with_chatgpt(url: str) -> tuple:
     Top word: N/A
     """
     
-    response = client.chat.completions.create(
-        model="gpt-3.5-turbo",
-        messages=[
-            {"role": "system", "content": "You are an expert in analyzing web pages."},
-            {"role": "user", "content": prompt}
-        ],
-        max_tokens=150
-    )
+    try:
+        response = client.chat.completions.create(
+            model="gpt-3.5-turbo",
+            messages=[
+                {"role": "system", "content": "You are an expert in analyzing web pages."},
+                {"role": "user", "content": prompt}
+            ],
+            max_tokens=150
+        )
 
-    result = response.choices[0].message.content.strip()
-    topics = result.split('\n')[0].split(': ', 1)[1]
-    top_word = result.split('\n')[1].split(': ', 1)[1]
+        result = response.choices[0].message.content.strip()
+        result_lines = result.split('\n')
+        
+        if len(result_lines) >= 2:
+            topics = result_lines[0].split(': ', 1)[1] if ': ' in result_lines[0] else "* No topics found"
+            top_word = result_lines[1].split(': ', 1)[1] if ': ' in result_lines[1] else "N/A"
+        else:
+            topics = "* Error in API response"
+            top_word = "N/A"
 
-    return topics, top_word
+        return topics, top_word
+    except Exception as e:
+        print(f"Error processing URL {url}: {str(e)}")
+        return "* Error processing URL", "N/A"
 
 def process_csv(input_path, output_path, num_rows=None):
     df = pd.read_csv(input_path)
     
     if num_rows:
         df = df.head(num_rows)
+    
+    # Ensure Topics and Top_word columns are of string type
+    df['Topics'] = df['Topics'].astype(str)
+    df['Top_word'] = df['Top_word'].astype(str)
     
     for index, row in df.iterrows():
         url = row["Top pages"]
@@ -56,6 +71,9 @@ def process_csv(input_path, output_path, num_rows=None):
         df.at[index, "Top_word"] = top_word
         
         print(f"Processed {index + 1}/{len(df)} URLs")
+        
+        # Add a small delay to avoid hitting API rate limits
+        time.sleep(1)
     
     df.to_csv(output_path, index=False)
     print(f"Processed data saved to {output_path}")
