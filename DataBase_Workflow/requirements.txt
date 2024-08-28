@@ -1,8 +1,0 @@
-pandas
-sqlalchemy
-requests
-beautifulsoup4
-psycopg2
-openai
-
-
